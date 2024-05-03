@@ -18,9 +18,9 @@ class _HomeScreenState extends State<HomeScreen> {
     _getWallpaper();
   }
 
-  void _getWallpaper() async {
+  Future<void> _getWallpaper() async {
     try {
-      List<Wallpaper> result = await client.wallpaper.getAllWallpaper();
+      final List<Wallpaper> result = await client.wallpaper.getAllWallpaper();
       setState(() {
         _resultWallpaper = result;
       });

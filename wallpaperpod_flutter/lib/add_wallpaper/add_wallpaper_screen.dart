@@ -21,16 +21,16 @@ class _AddWallpaperScreenState extends State<AddWallpaperScreen> {
 
   XFile? _pickedImage;
 
-  void _storeWallpaper() async {
+  Future<void> _storeWallpaper() async {
     try {
       if(_pickedImage != null) {
 
-        File file = File(_pickedImage!.path.toString());
-        var uploadDescription = await client.wallpaper.getUploadDescription(file.readAsBytes().asStream().toString());
+        final file = File(_pickedImage!.path.toString());
+        final uploadDescription = await client.wallpaper.getUploadDescription(file.readAsBytes().asStream().toString());
         if (uploadDescription != null) {
-          var uploader = FileUploader(uploadDescription);
+          final uploader = FileUploader(uploadDescription);
           await uploader.upload(file.readAsBytes().asStream(), 1);
-          var success = await client.wallpaper.verifyUpload(file.readAsBytes().asStream().toString());
+          final success = await client.wallpaper.verifyUpload(file.readAsBytes().asStream().toString());
           print('=========uploaded : $success');
         }
 
@@ -64,7 +64,7 @@ class _AddWallpaperScreenState extends State<AddWallpaperScreen> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(bottom: 16.0),
+                padding: const EdgeInsets.only(bottom: 16),
                 child: TextField(
                   controller: _textEditingController,
                   decoration: const InputDecoration(
@@ -74,7 +74,7 @@ class _AddWallpaperScreenState extends State<AddWallpaperScreen> {
               ),
 
               Padding(
-                padding: const EdgeInsets.only(bottom: 16.0),
+                padding: const EdgeInsets.only(bottom: 16),
                 child: TextField(
                   controller: _imageTextEditingController,
                   decoration: const InputDecoration(
@@ -84,17 +84,17 @@ class _AddWallpaperScreenState extends State<AddWallpaperScreen> {
               ),
 
               Padding(
-                padding: const EdgeInsets.only(bottom: 16.0),
+                padding: const EdgeInsets.only(bottom: 16),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: Theme.of(context).cardColor,
-                    border: Border.all(color: Theme.of(context).primaryColor)
+                    border: Border.all(color: Theme.of(context).primaryColor),
                   ),
                   child: Row(children: [
                     const Expanded(
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Text(''),
                       ),
                     ),
@@ -105,7 +105,7 @@ class _AddWallpaperScreenState extends State<AddWallpaperScreen> {
                       },
                       icon: const Icon(Icons.date_range_sharp),
                     ),
-                  ]),
+                  ],),
                 ),
               ),
 
@@ -128,10 +128,10 @@ class _AddWallpaperScreenState extends State<AddWallpaperScreen> {
                             padding: EdgeInsets.symmetric(horizontal: 20),
                             child: Text('Upload profile picture'),
                           ),
-                        ]),
+                        ],),
                       ),
                     );
-                  }
+                  },
                 ),
 
                 Positioned(
@@ -144,7 +144,7 @@ class _AddWallpaperScreenState extends State<AddWallpaperScreen> {
                   ),
                 ),
 
-                _pickedImage != null ? Positioned(
+                if (_pickedImage != null) Positioned(
                   bottom: -10, right: -10,
                   child: InkWell(
                     onTap: () => pickDmImage(true),
@@ -158,11 +158,11 @@ class _AddWallpaperScreenState extends State<AddWallpaperScreen> {
                     ),
                   ),
 
-                ) : const SizedBox(),
-              ]),
+                ) else const SizedBox(),
+              ],),
 
               Padding(
-                padding: const EdgeInsets.only(bottom: 16.0, top: 20.0),
+                padding: const EdgeInsets.only(bottom: 16, top: 20),
                 child: ElevatedButton(
                   onPressed: _storeWallpaper,
                   child: const Text('Send to Server'),
@@ -188,9 +188,6 @@ class _AddWallpaperScreenState extends State<AddWallpaperScreen> {
             colorScheme:  ColorScheme.light(
               // primary: MyColors.primary,
               primary: Theme.of(context).colorScheme.primary,
-              onPrimary: Colors.white,
-              surface: Colors.white,
-              onSurface: Colors.black,
             ),
             //.dialogBackgroundColor:Colors.blue[900],
           ),
@@ -211,11 +208,11 @@ class _AddWallpaperScreenState extends State<AddWallpaperScreen> {
     // });
   }
 
-  void pickDmImage(bool isRemove) async {
+  Future<void> pickDmImage(bool isRemove) async {
     if(isRemove) {
       _pickedImage = null;
     }else {
-      XFile? pickLogo = await ImagePicker().pickImage(source: ImageSource.gallery);
+      final pickLogo = await ImagePicker().pickImage(source: ImageSource.gallery);
       if(pickLogo != null) {
         _pickedImage = pickLogo;
       }

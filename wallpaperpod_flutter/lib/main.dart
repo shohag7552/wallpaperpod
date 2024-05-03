@@ -1,6 +1,6 @@
-import 'package:wallpaperpod_client/wallpaperpod_client.dart';
 import 'package:flutter/material.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
+import 'package:wallpaperpod_client/wallpaperpod_client.dart';
 import 'package:wallpaperpod_flutter/deshboard/dashboard_screen.dart';
 
 // Sets up a singleton client object that can be used to talk to the server from
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({required this.title, super.key});
 
   final String title;
 
@@ -53,7 +53,7 @@ class MyHomePageState extends State<MyHomePage> {
   // Calls the `hello` method of the `example` endpoint. Will set either the
   // `_resultMessage` or `_errorMessage` field, depending on if the call
   // is successful.
-  void _callHello() async {
+  Future<void> _callHello() async {
     try {
       // final result = await client.example.hello(_textEditingController.text);
       final result = await client.wallpaper.createWallpaper(Wallpaper(name: _textEditingController.text, image: _imageTextEditingController.text, date: DateTime.now()),
@@ -70,10 +70,10 @@ class MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  void _getWallpaper() async {
+  Future<void> _getWallpaper() async {
     try {
       // final result = await client.example.hello(_textEditingController.text);
-      List<Wallpaper> result = await client.wallpaper.getAllWallpaper();
+      final List<Wallpaper> result = await client.wallpaper.getAllWallpaper();
       setState(() {
         _errorMessage = null;
         // print('=======result : ${result.toString()}');
@@ -98,7 +98,7 @@ class MyHomePageState extends State<MyHomePage> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(bottom: 16.0),
+                padding: const EdgeInsets.only(bottom: 16),
                 child: TextField(
                   controller: _textEditingController,
                   decoration: const InputDecoration(
@@ -108,7 +108,7 @@ class MyHomePageState extends State<MyHomePage> {
               ),
 
               Padding(
-                padding: const EdgeInsets.only(bottom: 16.0),
+                padding: const EdgeInsets.only(bottom: 16),
                 child: TextField(
                   controller: _imageTextEditingController,
                   decoration: const InputDecoration(
@@ -118,7 +118,7 @@ class MyHomePageState extends State<MyHomePage> {
               ),
 
               Padding(
-                padding: const EdgeInsets.only(bottom: 16.0),
+                padding: const EdgeInsets.only(bottom: 16),
                 child: TextField(
                   controller: _dateTextEditingController,
                   decoration: const InputDecoration(
@@ -128,7 +128,7 @@ class MyHomePageState extends State<MyHomePage> {
               ),
 
               Padding(
-                padding: const EdgeInsets.only(bottom: 16.0),
+                padding: const EdgeInsets.only(bottom: 16),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -160,13 +160,13 @@ class MyHomePageState extends State<MyHomePage> {
 // _ResultDisplays shows the result of the call. Either the returned result from
 // the `example.hello` endpoint method or an error message.
 class _ResultDisplay extends StatelessWidget {
-  final List<Wallpaper>? wallpapers;
-  final String? errorMessage;
 
   const _ResultDisplay({
     this.wallpapers,
     this.errorMessage,
   });
+  final List<Wallpaper>? wallpapers;
+  final String? errorMessage;
 
   @override
   Widget build(BuildContext context) {
@@ -192,6 +192,6 @@ class _ResultDisplay extends StatelessWidget {
         title: Text(wallpapers![index].name),
         leading: Text(wallpapers![index].id.toString()),
       );
-    }) : const SizedBox();
+    },) : const SizedBox();
   }
 }
