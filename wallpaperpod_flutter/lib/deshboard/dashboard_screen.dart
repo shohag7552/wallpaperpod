@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:wallpaperpod_client/wallpaperpod_client.dart';
 import 'package:wallpaperpod_flutter/add_wallpaper/add_wallpaper_screen.dart';
 import 'package:wallpaperpod_flutter/home/home_screen.dart';
 class DashboardScreen extends StatefulWidget {
@@ -28,6 +30,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print('---client : ${GetIt.I<Client>()}');
     return Scaffold(
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),

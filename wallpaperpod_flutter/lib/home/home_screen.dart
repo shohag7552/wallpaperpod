@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:wallpaperpod_client/wallpaperpod_client.dart';
 import 'package:wallpaperpod_flutter/main.dart';
 class HomeScreen extends StatefulWidget {
@@ -20,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _getWallpaper() async {
     try {
-      final List<Wallpaper> result = await client.wallpaper.getAllWallpaper();
+      final result = await GetIt.I<Client>().wallpaper.getAllWallpaper();
       setState(() {
         _resultWallpaper = result;
       });

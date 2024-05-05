@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wallpaperpod_client/wallpaperpod_client.dart';
 import 'package:wallpaperpod_flutter/main.dart';
@@ -26,11 +27,11 @@ class _AddWallpaperScreenState extends State<AddWallpaperScreen> {
       if(_pickedImage != null) {
 
         final file = File(_pickedImage!.path.toString());
-        final uploadDescription = await client.wallpaper.getUploadDescription(file.readAsBytes().asStream().toString());
+        final uploadDescription = await GetIt.I<Client>().wallpaper.getUploadDescription(file.readAsBytes().asStream().toString());
         if (uploadDescription != null) {
           final uploader = FileUploader(uploadDescription);
           await uploader.upload(file.readAsBytes().asStream(), 1);
-          final success = await client.wallpaper.verifyUpload(file.readAsBytes().asStream().toString());
+          final success = await GetIt.I<Client>().wallpaper.verifyUpload(file.readAsBytes().asStream().toString());
           print('=========uploaded : $success');
         }
 
