@@ -11,17 +11,21 @@ dependencies:
   bloc: ^8.1.3
   flutter:
     sdk: flutter
-  flutter_bloc: ^8.1.4
-  flutter_localizations:
-    sdk: flutter
+  serverpod_flutter: 1.2.6
   wallpaperpod_client:
     path: ../wallpaperpod_client
 
+  serverpod_auth_shared_flutter: ^1.2.6
+
+  flutter_bloc: ^8.1.4
+  flutter_localizations:
+    sdk: flutter
+
   intl: ^0.18.1
-  serverpod_flutter: 1.2.5
   image_picker: ^1.0.7
   injectable: ^2.4.1
   get_it: ^7.7.0
+
 
 dev_dependencies:
   bloc_test: ^9.1.6

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:wallpaperpod_client/wallpaperpod_client.dart';
-import 'package:wallpaperpod_flutter/main.dart';
+import 'package:wallpaperpod_flutter/wallpaperpod_client_module.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
